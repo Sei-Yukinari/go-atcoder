@@ -61,5 +61,5 @@ $ ojgo
 
 #### submission
 ```bash
-acc submit
+acc submit main.go
 ```

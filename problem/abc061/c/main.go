@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -90,7 +91,7 @@ func (io *Io) PrintIntLn(a []int) {
 	for _, x := range a {
 		b = append(b, x)
 	}
-	io.Println(b...)
+	io.PrintLn(b...)
 }
 
 func (io *Io) PrintStringLn(a []string) {
@@ -98,7 +99,7 @@ func (io *Io) PrintStringLn(a []string) {
 	for _, x := range a {
 		b = append(b, x)
 	}
-	io.Println(b...)
+	io.PrintLn(b...)
 }
 
 func Log(name string, value interface{}) {
@@ -126,5 +127,26 @@ func main() {
 	io := NewIo()
 	defer io.Flush()
 
-	Log("main", "hello world")
+	N, K := io.NextInt(), io.NextInt()
+	var s = map[int]int{}
+	for i := 0; i < N; i++ {
+		a := io.NextInt()
+		b := io.NextInt()
+		s[a] += b
+	}
+	key := make([]int, len(s))
+	index := 0
+	for i := range s {
+		key[index] = i
+		index++
+	}
+	sort.Ints(key)
+	for i := 0; i < len(key); i++ {
+		K = K - s[key[i]]
+		if K <= 0 {
+			io.Println(key[i])
+			return
+		}
+
+	}
 }
