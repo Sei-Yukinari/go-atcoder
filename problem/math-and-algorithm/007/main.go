@@ -109,30 +109,17 @@ func (io *Io) PrintStringLn(a []string) {
 	io.Println(b...)
 }
 
-func Log(name string, value interface{}) {
-	_, err := fmt.Fprintf(os.Stderr, "%s=%+v\n", name, value)
-	if err != nil {
-		return
-	}
-}
-
-func intMin(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func intMax(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func main() {
 	io := NewIo()
 	defer io.Flush()
 
-	Log("main", "hello world")
+	n, x, y := io.NextInt(), io.NextInt(), io.NextInt()
+
+	var count = 0
+	for i := 1; i <= n; i++ {
+		if i%x == 0 || i%y == 0 {
+			count++
+		}
+	}
+	io.Println(count)
 }
