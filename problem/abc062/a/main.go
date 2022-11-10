@@ -101,30 +101,30 @@ func (io *Io) PrintStringLn(a []string) {
 	io.Println(b...)
 }
 
-func Log(name string, value interface{}) {
-	_, err := fmt.Fprintf(os.Stderr, "%s=%+v\n", name, value)
-	if err != nil {
-		return
-	}
-}
-
-func intMin(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func intMax(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func main() {
 	io := NewIo()
 	defer io.Flush()
 
-	Log("main", "hello world")
+	x, y := io.NextInt(), io.NextInt()
+	groups := [][]int{
+		{1, 3, 5, 7, 8, 10, 12},
+		{4, 6, 9, 11},
+		{2},
+	}
+	var xg, yg int
+	for i, v := range groups {
+		for _, vv := range v {
+			switch vv {
+			case x:
+				xg = i
+			case y:
+				yg = i
+			}
+		}
+	}
+	if xg == yg {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
 }
