@@ -101,30 +101,24 @@ func (io *Io) PrintStringLn(a []string) {
 	io.Println(b...)
 }
 
-func Log(name string, value interface{}) {
-	_, err := fmt.Fprintf(os.Stderr, "%s=%+v\n", name, value)
-	if err != nil {
-		return
-	}
-}
-
-func intMin(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-func intMax(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
+const Frame string = "#"
 
 func main() {
 	io := NewIo()
 	defer io.Flush()
 
-	Log("main", "hello world")
+	height, width := io.NextInt(), io.NextInt()
+
+	var upAndDownFrame string
+	for i := 0; i < width+2; i++ {
+		upAndDownFrame += Frame
+	}
+
+	io.Println(upAndDownFrame)
+	var img string
+	for i := 0; i < height; i++ {
+		img = io.Next()
+		io.Printf("%s%s%s\n", Frame, img, Frame)
+	}
+	io.Println(upAndDownFrame)
 }
