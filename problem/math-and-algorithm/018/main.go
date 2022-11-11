@@ -137,7 +137,7 @@ func main() {
 	n := io.NextInt()
 	items := io.NextInts(n)
 
-	s := make([]int, n)
+	s := make([]int, 5)
 	for i := 0; i < n; i++ {
 		s[items[i]/100]++
 	}
