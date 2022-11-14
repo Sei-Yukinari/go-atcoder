@@ -147,7 +147,7 @@ func unique(intSlice []int) []int {
 	keys := make(map[int]bool)
 	var list []int
 	for _, v := range intSlice {
-		if _, value := keys[v]; !value {
+		if !keys[v] {
 			keys[v] = true
 			list = append(list, v)
 		}
