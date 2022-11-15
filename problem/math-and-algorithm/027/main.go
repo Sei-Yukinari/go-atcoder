@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -138,6 +137,29 @@ func main() {
 	n := io.NextInt()
 	a := io.NextInts(n)
 
-	sort.Ints(a)
-	io.PrintIntLn(a)
+	io.PrintIntLn(mergeSort(a))
+}
+
+func mergeSort(s []int) []int {
+	if len(s) < 2 {
+		return s
+	}
+	mid := int(len(s) / 2)
+	r := mergeSort(s[:mid])
+	l := mergeSort(s[mid:])
+
+	i, j := 0, 0
+	var result []int
+	for i < len(r) && j < len(l) {
+		if r[i] > l[j] {
+			result = append(result, l[j])
+			j++
+		} else {
+			result = append(result, r[i])
+			i++
+		}
+	}
+	result = append(result, r[i:]...)
+	result = append(result, l[j:]...)
+	return result
 }
